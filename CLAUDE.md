@@ -12,6 +12,11 @@
 
 SunriseTasksは、iOS、macOS、visionOSをサポートするSwiftUIベースのマルチプラットフォームアプリケーションです。Swift 6.0、Swift Concurrency、MainActor分離などの最新のSwift機能を使用しています。
 
+### アプリ構成
+- タブビューベースのナビゲーション
+  - **タスクタブ**: タスク管理機能を提供
+  - **設定タブ**: アプリケーション設定を管理
+
 ## ビルドコマンド
 
 ### プロジェクトを開く
@@ -51,12 +56,16 @@ xcodebuild -project SunriseTasks.xcodeproj -scheme SunriseTasks -destination 'pl
 
 - `SunriseTasks/` - メインアプリケーションコード
   - `SunriseTasksApp.swift` - @main属性を持つアプリのエントリーポイント
-  - `ContentView.swift` - ルートのSwiftUIビュー
+  - `ContentView.swift` - ルートのSwiftUIビュー（TabViewを含む）
+  - `TasksView.swift` - タスク一覧を表示するビュー
+  - `SettingsView.swift` - 設定画面のビュー
   - `Assets.xcassets/` - 画像とカラーのアセットカタログ
   - `Features/<機能名>/` - 将来的な機能追加はこのディレクトリ構成で
 - `SunriseTasksTests/` - Swift Testingフレームワークを使用したユニットテスト
 - `SunriseTasksUITests/` - XCTestを使用したUIテスト
 - `SunriseTasks.xcodeproj/` - Xcode設定
+- `CLAUDE.md` - このファイル。プロジェクトガイダンス
+- `AGENTS.md` - AI開発エージェント向けのドキュメント
 
 ## 技術的な設定
 
@@ -64,6 +73,8 @@ xcodebuild -project SunriseTasks.xcodeproj -scheme SunriseTasks -destination 'pl
 - iOS: 26.0
 - macOS: 15.6
 - visionOS: 26.0
+
+**注意**: これらは2025年時点でのベータ版バージョンです。Xcode 16.0.1以降が必要です。
 
 ### Swift設定
 - Swiftバージョン: 5.0
@@ -101,10 +112,22 @@ xcodebuild -project SunriseTasks.xcodeproj -scheme SunriseTasks -destination 'pl
 - 新機能では最低1本のSwift Testingテストを追加
 - ユーザー体験に影響する変更にはUIテストも更新
 
+## Git管理
+
+### ブランチ戦略
+- `main` - メインブランチ（安定版）
+- 機能追加やバグ修正は適切な名前のfeatureブランチで作業
+
+### リモートリポジトリ
+このプロジェクトのリモートリポジトリ設定を確認するには:
+```bash
+git remote -v
+```
+
 ## 開発サイクル
 
 1. 作業開始前に`main`を最新化
-2. ブランチを機能単位で分岐
+2. ブランチを機能単位で分岐（例: `feature/task-edit`, `fix/navigation-bug`）
 3. 実装後は`xcodebuild test ...`でローカル検証
 4. 必要に応じてスクリーンショットや動画を録画
 5. レビュー指摘は追加コミットまたは`fixup`で対応し、`rebase`で整理
